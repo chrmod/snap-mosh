@@ -1,5 +1,8 @@
 language: cpp
 
+services:
+  - docker
+
 # cross toolchain (used as a base for multiarch cross-compilation configurations below)
 include: &toolchain_linux_cross
   dist: trusty
@@ -23,11 +26,10 @@ matrix:
   - os: linux
     <<: *toolchain_linux_armhf
 
-before_install:
-  - apt-get install -y snapcraft
-
 script:
-  - snapcraft
+  - docker build -t chrmod/snap-mosh .
+  - docker run -v $(pwd):$(pwd) -w $(pwd) -t chrmod/snap-mosh sh -c
+    "snapcraft --target-arch=${ARCH}"
 
 notifications:
   email: false

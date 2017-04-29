@@ -1,5 +1,5 @@
 name: mosh
-version: '0.1'
+version: '0.1.1'
 summary: Mobile shell that supports roaming and intelligent local echo
 description: |
   Remote terminal application that allows roaming, supports intermittent
@@ -12,11 +12,18 @@ confinement: devmode
 apps:
   mosh:
     command: mosh
+  mosh-client:
+    command: mosh-client
+  mosh-server:
+    command: mosh-server
 
 parts:
   mosh:
-    plugin: autotools
+    plugin: x-autotools
     source: https://mosh.org/mosh-1.3.0.tar.gz
+    configflags:
+      - --host=x86_64-unknown-linux-gnu
+      - LDFLAGS=-static
     build-packages:
       - perl
       - protobuf-compiler
