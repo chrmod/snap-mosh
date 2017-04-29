@@ -1,0 +1,26 @@
+name: mosh
+version: '0.1'
+summary: Mobile shell that supports roaming and intelligent local echo
+description: |
+  Remote terminal application that allows roaming, supports intermittent
+  connectivity, and provides intelligent local echo and line editing of user
+  keystrokes.
+
+grade: devel
+confinement: devmode
+
+apps:
+  mosh:
+    command: mosh
+
+parts:
+  mosh:
+    plugin: autotools
+    source: https://mosh.org/mosh-1.3.0.tar.gz
+    build-packages:
+      - perl
+      - protobuf-compiler
+      - libprotobuf-dev
+      - libncurses5-dev
+      - zlib1g-dev
+      - libssl-dev
