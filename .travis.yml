@@ -38,9 +38,8 @@ after_success:
 
 deploy:
   provider: script
-  script: docker run -v $(pwd):$(pwd) -t ubuntu:xenial sh -c "apt update -qq && apt
-    install snapcraft -y && cd $(pwd) && snapcraft && snapcraft push *.snap 
-    --release edge --target-arch ${ARCH}"
+  script: docker run -v $(pwd):$(pwd) -w $(pwd) -t chrmod/snap-mosh sh -c
+    "snapcraft push * .snap --release edge --target-arch=${ARCH}"
   skip_cleanup: true
   on:
     branch: master
